@@ -1,0 +1,6 @@
+framework module OneNetwork {
+  umbrella header "OneNetwork-umbrella.h"
+
+  export *
+  module * { export * }
+}

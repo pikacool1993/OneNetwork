@@ -9,10 +9,27 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    private var loans = [Loan]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        let testApi = TestApi();
+        testApi.handler.succeed { [weak self] (data) in
+            
+            for loan in data.loans {
+                print(loan)
+            }
+            
+        }.failed { (error) in
+            
+        }.start()
+    }
+    
+    func getLatestLoans() {
+        
     }
 
     override func didReceiveMemoryWarning() {
