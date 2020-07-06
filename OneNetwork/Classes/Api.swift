@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import HandyJSON
 
 public enum NetworkError: Error, LocalizedError, CustomNSError {
     case jsonParsingError
@@ -66,28 +67,22 @@ class Api: NSObject {
         
     }
     
-    public func request<T: Decodable>() -> NetworkRequest<T> {
+    public func request<T: HandyJSON>() -> NetworkRequest<T> {
         func parasingJson(json: Any) -> T? {
-            guard let data = json as? Data else {
+            guard let result = json as? [String: Any] else {
                 return nil
             }
             
-//            guard let jsonData = try? JSONSerialization.data(withJSONObject: data, options: JSONSerialization.WritingOptions.prettyPrinted) else {
-//                return nil;
-//            }
-            
-            do {
-                let decoder = JSONDecoder()
-                let model = try decoder.decode(T.self, from: data)
+            if let model = T.deserialize(from: result) {
                 return model;
-            } catch {
-                return nil
             }
+            
+            return nil
         }
         
         let handler = NetworkRequest<T>() { [weak self] (success, fail) in
             guard let strongSelf = self else { return }
-            strongSelf.configRequest(failed: fail, success: { (data: Data) in
+            strongSelf.configRequest(failed: fail, success: { (data: [String: Any]) in
                 if let models = parasingJson(json: data) {
                     success(models)
                     strongSelf.success(models)
@@ -126,25 +121,21 @@ class Api: NSObject {
                     return
                 }
                 
-//                do {
-//                    guard let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? T else {
-//                        failed(NetworkError.responseDataFormatError as NSError)
-//                        self.fail(NetworkError.responseDataFormatError as NSError)
-//                        return
-//                    }
-//
-//                    if self.needCache {
-//
-//                    }
-//                    success(json)
-//                } catch {
-//                    failed(NetworkError.responseDataFormatError as NSError)
-//                    self.fail(NetworkError.responseDataFormatError as NSError)
-//                }
-                if self.needCache {
-                   
+                do {
+                    guard let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? T else {
+                        failed(NetworkError.responseDataFormatError as NSError)
+                        self.fail(NetworkError.responseDataFormatError as NSError)
+                        return
+                    }
+
+                    if self.needCache {
+
+                    }
+                    success(json)
+                } catch {
+                    failed(NetworkError.responseDataFormatError as NSError)
+                    self.fail(NetworkError.responseDataFormatError as NSError)
                 }
-                success(data as! T)
                 
             default:
                 guard let data = response.data else {

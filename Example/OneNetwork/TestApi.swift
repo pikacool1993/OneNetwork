@@ -13,9 +13,9 @@ class TestApi: Api {
         return "/v1/loans/newest.json"
     }
     
-    public lazy var handler: NetworkRequest<LoanDataStore> = self.request()
-    
-    public func start() {
-        handler.start()
-    }
+//    public lazy var handler: NetworkRequest<LoanDataStore> = self.request()
+//    
+//    public func start() {
+//        handler.start()
+//    }
 }

@@ -15,17 +15,17 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-        let testApi = TestApi();
+    
+        let testApi = TestApi2();
         testApi.handler.succeed { [weak self] (data) in
-            
-            for loan in data.loans {
+            for loan in data.loans! {
                 print(loan)
             }
-            
+
         }.failed { (error) in
-            
+
         }.start()
+    
     }
     
     func getLatestLoans() {

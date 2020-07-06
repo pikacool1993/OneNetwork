@@ -5,14 +5,16 @@ PODS:
   - FBSnapshotTestCase/Core (2.1.4)
   - FBSnapshotTestCase/SwiftSupport (2.1.4):
     - FBSnapshotTestCase/Core
+  - HandyJSON (5.0.2)
   - Nimble (7.3.4)
   - Nimble-Snapshots (6.3.0):
     - Nimble-Snapshots/Core (= 6.3.0)
   - Nimble-Snapshots/Core (6.3.0):
     - FBSnapshotTestCase (~> 2.0)
     - Nimble (~> 7.0)
-  - OneNetwork (1.0.0):
+  - OneNetwork (1.1.0):
     - Alamofire (~> 5.2)
+    - HandyJSON (~> 5.0.1)
   - Quick (1.2.0)
 
 DEPENDENCIES:
@@ -26,6 +28,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - FBSnapshotTestCase
+    - HandyJSON
     - Nimble
     - Nimble-Snapshots
     - Quick
@@ -37,9 +40,10 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
+  HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
   Nimble: 051e3d8912d40138fa5591c78594f95fb172af37
   Nimble-Snapshots: f5459b5b091678dc942d03ec4741cacb58ba4a52
-  OneNetwork: e0bebbd5dc5969e1b20b574538fe2dff1718efc5
+  OneNetwork: 6aab38107088a039c944ce276252ccf88af147c0
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
 
 PODFILE CHECKSUM: a110c2aae823eb500df549d47c738abcaf06cd08
